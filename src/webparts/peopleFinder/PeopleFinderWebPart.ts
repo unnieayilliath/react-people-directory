@@ -21,7 +21,8 @@ export default class PeopleFinderWebPart extends BaseClientSideWebPart <IPeopleF
     const element: React.ReactElement<IPeopleFinderProps> = React.createElement(
       PeopleFinder,
       {
-        description: this.properties.description
+        description: this.properties.description,
+        context: this.context
       }
     );
 
