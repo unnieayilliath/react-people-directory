@@ -7,10 +7,6 @@ export default class PeopleFinder extends React.Component<IPeopleFinderProps, {}
   public render(): React.ReactElement<IPeopleFinderProps> {
   const searchBoxStyles: Partial<ISearchBoxStyles> = { root: { width: "100%" } };
     return (
-    /*   <div className={ styles.peopleFinder }>
-        <div className={ styles.container }>
-          <div className={ styles.row }>
-            <div className={ styles.column }> */
             <SearchBox
               styles={searchBoxStyles}
               placeholder="Find Staff"
@@ -22,11 +18,7 @@ export default class PeopleFinder extends React.Component<IPeopleFinderProps, {}
               }}
             onChange={newValue => console.log('SearchBox onChange fired: ' + newValue)}
              onSearch={newValue => console.log('SearchBox onSearch fired: ' + newValue)}
-  />/* 
-            </div>
-          </div>
-        </div>
-      </div> */
+  />
     );
   }
 }
