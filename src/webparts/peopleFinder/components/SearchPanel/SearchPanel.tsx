@@ -41,7 +41,7 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
         <div>
        <PrimaryButton iconProps={searchUserIcon} text="Search Staff" onClick={openPanel} />
         <Panel
-        headerText="Search People"
+        headerText="Find Staff"
         isOpen={isOpen}
         onDismiss={dismissPanel}
         // You MUST provide this prop! Otherwise screen readers will just say "button" with no label.
