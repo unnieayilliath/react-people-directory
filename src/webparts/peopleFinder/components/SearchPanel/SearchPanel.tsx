@@ -1,5 +1,5 @@
 import * as React  from 'react';
-import { Panel } from 'office-ui-fabric-react/lib/Panel';
+import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 import { useConstCallback } from '@uifabric/react-hooks';
 import { PersonaCard } from "../PersonaCard/PersonaCard";
 import { IUserProperties } from "../PersonaCard/IUserProperties";
@@ -41,6 +41,7 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
         <div>
        <PrimaryButton iconProps={searchUserIcon} text="Search Staff" onClick={openPanel} />
         <Panel
+        type={PanelType.large}
         headerText="Find Staff"
         isOpen={isOpen}
         onDismiss={dismissPanel}
