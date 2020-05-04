@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "people-finder-client-side-solution",
+    "id": "e81ace7a-fa44-4a6e-ba2b-2375b5620c7f",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "isDomainIsolated": false
+  },
+  "paths": {
+    "zippedPackage": "solution/people-finder.sppkg"
+  }
+}
