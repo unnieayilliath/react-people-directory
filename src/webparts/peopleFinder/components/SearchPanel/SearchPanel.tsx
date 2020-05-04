@@ -7,6 +7,7 @@ import { SearchBox, ISearchBoxStyles } from 'office-ui-fabric-react/lib/SearchBo
 import {PrimaryButton,IIconProps } from 'office-ui-fabric-react';
 import { UserService } from '../../../services/UserService';
 import { ISearchPanelProps } from './ISearchPanelProps';
+import { ImageUtil } from '../../../utilities/ImageUtil';
 const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
     const searchUserIcon: IIconProps = { iconName: 'ProfileSearch' };
     const searchBoxStyles: Partial<ISearchBoxStyles> = { root: { width: "100%" } };
@@ -26,7 +27,7 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
         for (let index = 0; index < users.PrimarySearchResults.length; index++) {
           let user:any = users.PrimarySearchResults[index]  ;
           if (user.PictureURL){
-            user = { ...user, PictureURL: await this.getImageBase64(`/_layouts/15/userphoto.aspx?size=M&accountname=${user.WorkEmail}`)};
+            user = { ...user, PictureURL: await ImageUtil.getImageBase64(`/_layouts/15/userphoto.aspx?size=M&accountname=${user.WorkEmail}`)};
            users.PrimarySearchResults[index]  =  user ;
           }
         }

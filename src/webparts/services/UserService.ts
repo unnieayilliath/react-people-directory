@@ -32,7 +32,7 @@ export class UserService {
         const searchProperties: string[] = ["FirstName", "LastName", "PreferredName", "WorkEmail", "OfficeNumber","PictureURL", "WorkPhone", "MobilePhone", "JobTitle", "Department", "Skills", "PastProjects", "BaseOfficeLocation", "SPS-UserType","GroupId"];
         try {
           if (!searchString) return undefined;
-          let users:SearchResults = await sp.searchWithCaching(<ISearchQuery>{
+          let users:SearchResults = await sp.search(<ISearchQuery>{
             Querytext: _search,
             RowLimit:500,
             EnableInterleaving: true,

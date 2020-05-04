@@ -4,7 +4,7 @@ export class ImageUtil{
    * @param pictureUrl
    * @returns
    */
-  private static getImageBase64(pictureUrl: string):Promise<string>{
+  public static getImageBase64(pictureUrl: string):Promise<string>{
         return new Promise((resolve, reject) => {
             let image = new Image();
             image.addEventListener("load", () => {
