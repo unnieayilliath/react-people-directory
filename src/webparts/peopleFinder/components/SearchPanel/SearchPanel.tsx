@@ -45,14 +45,6 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
       }, [searchTerm]);
     return (
         <div>
-       <PrimaryButton iconProps={searchUserIcon} text="Search People" onClick={openPanel} />
-        <Panel
-        type={PanelType.large}
-        headerText="People Finder"
-        isOpen={isOpen}
-        onDismiss={dismissPanel}
-        // You MUST provide this prop! Otherwise screen readers will just say "button" with no label.
-        closeButtonAriaLabel="Close">
          <SearchBox
          autoFocus={true}
          styles={searchBoxStyles}
@@ -78,7 +70,6 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
               </div>
             )
           }
-      </Panel>
       </div>
     );
 };

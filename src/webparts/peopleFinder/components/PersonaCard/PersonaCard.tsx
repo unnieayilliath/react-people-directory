@@ -35,7 +35,6 @@ export class PersonaCard extends React.Component<
 > {
   constructor(props: IPersonaCardProps) {
     super(props);
-
     this.state = { livePersonaCard: undefined, pictureUrl: undefined };
   }
   /**
