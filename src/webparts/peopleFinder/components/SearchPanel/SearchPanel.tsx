@@ -8,6 +8,7 @@ import {PrimaryButton,IIconProps } from 'office-ui-fabric-react';
 import { UserService } from '../../../services/UserService';
 import { ISearchPanelProps } from './ISearchPanelProps';
 import { ImageUtil } from '../../../utilities/ImageUtil';
+import { SearchResultMapUtil } from '../../../utilities/SearchResultMapUtil';
 const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
     const searchUserIcon: IIconProps = { iconName: 'ProfileSearch' };
     const searchBoxStyles: Partial<ISearchBoxStyles> = { root: { width: "100%" } };
@@ -22,18 +23,11 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
     React.useEffect(() => {
       // Create an scoped async function in the hook
     async function callSearchService() {
-      const users = await UserService.searchUsers(searchTerm.toLowerCase(),true);
-      if (users && users.PrimarySearchResults.length > 0){
-        for (let index = 0; index < users.PrimarySearchResults.length; index++) {
-          let user:any = users.PrimarySearchResults[index]  ;
-          if (user.PictureURL){
-            user = { ...user, PictureURL: await ImageUtil.getImageBase64(`/_layouts/15/userphoto.aspx?size=M&accountname=${user.WorkEmail}`)};
-           users.PrimarySearchResults[index]  =  user ;
-          }
-        }
-       }
-       setSearchResults(users.PrimarySearchResults);
-        }
+      const userResults = await UserService.searchUsers(searchTerm.toLowerCase(),true);
+      const users:IUserProperties[]=await SearchResultMapUtil.Convert_Async(userResults);
+      console.log(users);
+       setSearchResults(users);
+      }
             // Execute the created function directly
             callSearchService();
       }, [searchTerm]);
@@ -59,22 +53,10 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
         }}
         onChange={onSearch}
       />
-         {searchResults.map(user => (
-            <PersonaCard
-              context={props.context}
-              profileProperties={{
-                DisplayName: user.PreferredName,
-                Title: user.JobTitle,
-                PictureUrl: user.PictureURL,
-                Email: user.WorkEmail,
-                Department: user.Department,
-                WorkPhone: user.WorkPhone,
-                Location: user.OfficeNumber
-                  ? user.OfficeNumber
-                  : user.BaseOfficeLocation
-              }}
-            />
-        ))}
+         { searchResults && searchResults.map(user=> 
+            <PersonaCard context={props.context} profileProperties={user} />
+            )
+          }
       </Panel>
       </div>
     );
