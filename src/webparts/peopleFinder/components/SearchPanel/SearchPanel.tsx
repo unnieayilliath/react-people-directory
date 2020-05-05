@@ -24,7 +24,12 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
     const dismissPanel = useConstCallback(() => setIsOpen(false));
     const [searchTerm, setSearchTerm] = React.useState("");
     const onSearch=useConstCallback((newValue) => {
-       setSearchTerm(newValue);
+      if(newValue && newValue!==""){
+        setSearchTerm(newValue);
+      }else{
+        //clear search, then show users with name starting with letter 'a'
+        setSearchTerm("a");
+      }
     });
     const [searchResults, setSearchResults] = React.useState([]);
     React.useEffect(() => {
@@ -40,10 +45,10 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
       }, [searchTerm]);
     return (
         <div>
-       <PrimaryButton iconProps={searchUserIcon} text="Search Staff" onClick={openPanel} />
+       <PrimaryButton iconProps={searchUserIcon} text="Search People" onClick={openPanel} />
         <Panel
         type={PanelType.large}
-        headerText="Find Staff"
+        headerText="People Finder"
         isOpen={isOpen}
         onDismiss={dismissPanel}
         // You MUST provide this prop! Otherwise screen readers will just say "button" with no label.
@@ -51,13 +56,7 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
          <SearchBox
          autoFocus={true}
          styles={searchBoxStyles}
-        placeholder="Find Staff"
-        onEscape={ev => {
-          console.log('Custom onEscape Called');
-        }}
-        onClear={ev => {
-          console.log('Custom onClear Called');
-        }}
+        placeholder="Search for People"
         onChange={onSearch}
       />
         
