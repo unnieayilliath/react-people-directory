@@ -107,7 +107,7 @@ export class PersonaCard extends React.Component<
             secondaryText={this.props.profileProperties.Title}
             tertiaryText={this.props.profileProperties.Department}
             imageUrl={this.props.profileProperties.PictureUrl}
-            size={PersonaSize.size72}
+            size={PersonaSize.size48}
             imageShouldFadeIn={false}
             imageShouldStartVisible={true}
           >
