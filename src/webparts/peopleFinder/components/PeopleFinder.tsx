@@ -29,8 +29,4 @@ export default class PeopleFinder extends React.Component<IPeopleFinderProps,{op
       </div>
     );
   }
-  public openPanel(){
-    console.log("button clicked");
-    this.setState({openPanel:true});
-  }
 }
