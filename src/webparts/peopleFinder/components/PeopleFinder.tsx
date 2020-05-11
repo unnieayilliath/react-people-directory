@@ -20,7 +20,8 @@ export default class PeopleFinder extends React.Component<IPeopleFinderProps,{op
        <PrimaryButton iconProps={searchUserIcon} text="Search People" onClick={evt=>this.setState({openPanel:true})} />
        <Panel
        isLightDismiss
-        type={PanelType.large}
+        type={PanelType.custom}
+        customWidth={"800px"}
         headerText="People Finder"
         isOpen={this.state.openPanel}
         // You MUST provide this prop! Otherwise screen readers will just say "button" with no label.

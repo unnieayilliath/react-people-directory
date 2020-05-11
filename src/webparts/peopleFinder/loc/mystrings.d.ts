@@ -2,8 +2,8 @@ declare interface IPeopleFinderWebPartStrings {
   PropertyPaneDescription: string;
   BasicGroupName: string;
   DescriptionFieldLabel: string;
-  DropDownPlaceLabelMessage: string;
-  DropDownPlaceHolderMessage: string;
+  SortDropDownPlaceLabelMessage: string;
+  SortDropDownPlaceHolderMessage: string;
   SearchPlaceHolder: string;
   PropertyPaneDescription: string;
   BasicGroupName: string;

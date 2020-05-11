@@ -7,9 +7,12 @@ import { UserService } from '../../services/UserService';
 import { ISearchPanelProps } from './ISearchPanelProps';
 import * as strings from 'PeopleFinderWebPartStrings';
 import NoUsersMessage from '../NoUsersMessage/NoUsersMessage';
-import { Shimmer, Spinner, SpinnerSize, Dropdown, IDropdownOption } from 'office-ui-fabric-react';
+import { Shimmer, Spinner, SpinnerSize, Dropdown, IDropdownOption, PivotLinkFormat, Pivot, PivotItem, PivotLinkSize } from 'office-ui-fabric-react';
+import styles from '../PeopleFinder.module.scss';
 
 const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
+  const az: string[] = ["A","B","C","D","E","F","G","H","I","J",
+    "K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
   const orderOptions: IDropdownOption[] = [
     { key: "FirstName", text: "First Name" },
     { key: "LastName", text: "Last Name" },
@@ -17,8 +20,13 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
     { key: "Location", text: "Location" },
     { key: "JobTitle", text: "Job Title" }
   ];
-  
-    const searchBoxStyles: Partial<ISearchBoxStyles> = { root: { width: "50%" } };
+  const searchOptions: IDropdownOption[] = [
+    { key: "People", text: "People" },
+    { key: "Department", text: "Department" },
+    { key: "JobTitle", text: "Job Title" }
+  ];
+    const searchBoxStyles: Partial<ISearchBoxStyles> = { root: { width: "100%" } };
+    const columnStyles: React.CSSProperties= { width: "50%" ,display:"inline-block",verticalAlign:"bottom"};
     const [searchTerm, setSearchTerm] = React.useState("a");
     const [searchResults, setSearchResults] = React.useState([]);
     React.useEffect(() => {
@@ -118,28 +126,58 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
     });
     return (
         <div>
-         <SearchBox 
+          <div className={styles.row}>
+          <div style={columnStyles}>
+          <SearchBox 
          autoFocus={true}
          styles={searchBoxStyles}
         placeholder="Search for People"
         onChange={onSearch}
       />
+      </div>
+          <div style={columnStyles}>
+          <Dropdown
+              placeholder={"Search in"}
+              options={searchOptions}
+              onChange={onSort}
+              styles={{ dropdown: { width: 200,paddingLeft:10, marginTop:10} }}
+            />
+          </div>
+        </div>
+        <div style={{paddingTop:10}}>
+            <Pivot
+              styles={{
+                root: {
+                  paddingLeft: 10,
+                  paddingRight: 10,
+                  whiteSpace: "normal",
+                  textAlign: "center"
+                }
+              }}
+              linkFormat={PivotLinkFormat.tabs}
+              linkSize={PivotLinkSize.normal}
+            >
+              {az.map((index: string) => {
+                return (
+                  <PivotItem headerText={index} itemKey={index} key={index} />
+                );
+              })}
+            </Pivot>
+          </div>
+       
           { searchResults && searchResults.length>0?
             (
             <div> 
-              <Dropdown
-              placeholder={strings.DropDownPlaceHolderMessage}
-              label={strings.DropDownPlaceLabelMessage}
+               <Dropdown
+              placeholder={strings.SortDropDownPlaceHolderMessage}
               options={orderOptions}
               onChange={onSort}
-              styles={{ dropdown: { width: 200 } }}
+              styles={{ dropdown: { width: 200} }}
             />
-            <div>
             {searchResults.map(user=> 
             <PersonaCard {...searchResults} context={props.context} 
             profileProperties={user} />
             )}
-            </div>
             </div>
             )
           :(isLoading?
