@@ -1,5 +1,5 @@
 export enum SearchScope{
-    People="People",
-    Department="Daprtment",
+    Name="Name",
+    Department="Department",
     JobTitle="JobTitle"
 }

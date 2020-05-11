@@ -22,11 +22,11 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
     { key: "JobTitle", text: "Job Title" }
   ];
   const searchOptions: IDropdownOption[] = [
-    { key: "People", text: "People" },
+    { key: "Name", text: "Name" },
     { key: "Department", text: "Department" },
     { key: "JobTitle", text: "Job Title" }
   ];
-  const [searchScope, setSearchScope] = React.useState(SearchScope.People);
+  const [searchScope, setSearchScope] = React.useState(SearchScope.Name);
      
     const searchBoxStyles: Partial<ISearchBoxStyles> = { root: { width: "100%" } };
     const columnStyles: React.CSSProperties= { width: "50%" ,display:"inline-block",verticalAlign:"bottom"};

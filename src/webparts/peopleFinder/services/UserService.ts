@@ -9,7 +9,7 @@ export class UserService {
       let _search=searchString.length>=3?`FirstName:${searchString}* OR LastName:${searchString}*`:(
         searchFirstName?`FirstName:${searchString}*`:`LastName:${searchString}*`
       );
-      if(searchScope!=SearchScope.People){
+      if(searchScope!==SearchScope.Name){
         _search=`${searchScope}:${searchString}*`;
       }
         const searchProperties: string[] = ["FirstName", "LastName", "PreferredName", "WorkEmail", "OfficeNumber","PictureURL", "WorkPhone", "MobilePhone", "JobTitle", "Department", "Skills", "PastProjects", "BaseOfficeLocation", "SPS-UserType","GroupId"];
