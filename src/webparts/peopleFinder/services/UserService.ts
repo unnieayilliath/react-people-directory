@@ -3,9 +3,13 @@ import { sp} from '@pnp/sp';
 import { ISearchQuery, SearchResults, SearchQueryBuilder,SortDirection } from "@pnp/sp/search";
 import { IUserProperties } from '../components/PersonaCard/IUserProperties';
 import { ImageUtil } from '../utilities/ImageUtil';
+import { SearchScope } from '../components/SearchScope';
 export class UserService {
-    public static async searchUsers(searchString: string, searchFirstName:boolean):Promise<IUserProperties[]> {
-        const _search =  !searchFirstName ? `LastName:${searchString}*` :  `FirstName:${searchString}*` ;
+    public static async searchUsers(searchString: string, searchScope:SearchScope):Promise<IUserProperties[]> {
+      let _search=`FirstName:${searchString}* OR LastName:${searchString}*`;
+      if(searchScope!=SearchScope.People){
+        _search=`${searchScope}:${searchString}*`;
+      }
         const searchProperties: string[] = ["FirstName", "LastName", "PreferredName", "WorkEmail", "OfficeNumber","PictureURL", "WorkPhone", "MobilePhone", "JobTitle", "Department", "Skills", "PastProjects", "BaseOfficeLocation", "SPS-UserType","GroupId"];
         try {
           if (!searchString) return undefined;

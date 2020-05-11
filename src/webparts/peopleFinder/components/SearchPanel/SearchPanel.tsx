@@ -9,6 +9,7 @@ import * as strings from 'PeopleFinderWebPartStrings';
 import NoUsersMessage from '../NoUsersMessage/NoUsersMessage';
 import { Shimmer, Spinner, SpinnerSize, Dropdown, IDropdownOption, PivotLinkFormat, Pivot, PivotItem, PivotLinkSize } from 'office-ui-fabric-react';
 import styles from '../PeopleFinder.module.scss';
+import { SearchScope } from '../SearchScope';
 
 const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
   const alphabets: string[] = ["A","B","C","D","E","F","G","H","I","J",
@@ -25,6 +26,8 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
     { key: "Department", text: "Department" },
     { key: "JobTitle", text: "Job Title" }
   ];
+  const [searchScope, setSearchScope] = React.useState(SearchScope.People);
+     
     const searchBoxStyles: Partial<ISearchBoxStyles> = { root: { width: "100%" } };
     const columnStyles: React.CSSProperties= { width: "50%" ,display:"inline-block",verticalAlign:"bottom"};
     const [searchTerm, setSearchTerm] = React.useState("a");
@@ -33,7 +36,7 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
       setIsLoading(true);
         // Create an scoped async function in the hook
         async function callSearchService() {
-            const users:IUserProperties[] = await UserService.searchUsers(searchTerm.toLowerCase(),true);
+            const users:IUserProperties[] = await UserService.searchUsers(searchTerm.toLowerCase(),searchScope);
             setSearchResults(users);
             setIsLoading(false);
         }
@@ -110,7 +113,6 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
             break;
         }
       });
-      console.log(_users);
       setSearchResults(_users);
     }, [sortBy]);
     const [isLoading, setIsLoading] = React.useState(true);
@@ -124,6 +126,9 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
     });
     const onSort=useConstCallback((ev: any, value: IDropdownOption) => {
       setSortBy(value.key.toString());
+    });
+    const onScopeChange=useConstCallback((ev: any, value: IDropdownOption) => {
+      setSearchScope(SearchScope[value.key.toString()]);
     });
     const onAlphaClick=useConstCallback((item?: PivotItem, ev?: React.MouseEvent<HTMLElement>) => {
       setSearchTerm(item.props.itemKey);
@@ -143,7 +148,7 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
           <Dropdown
               placeholder={"Search in"}
               options={searchOptions}
-              onChange={onSort}
+              onChange={onScopeChange}
               styles={{ dropdown: { width: 200,paddingLeft:10, marginTop:10} }}
             />
           </div>
