@@ -11,7 +11,7 @@ import { Shimmer, Spinner, SpinnerSize, Dropdown, IDropdownOption, PivotLinkForm
 import styles from '../PeopleFinder.module.scss';
 
 const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
-  const az: string[] = ["A","B","C","D","E","F","G","H","I","J",
+  const alphabets: string[] = ["A","B","C","D","E","F","G","H","I","J",
     "K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
   const orderOptions: IDropdownOption[] = [
     { key: "FirstName", text: "First Name" },
@@ -30,6 +30,7 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
     const [searchTerm, setSearchTerm] = React.useState("a");
     const [searchResults, setSearchResults] = React.useState([]);
     React.useEffect(() => {
+      setIsLoading(true);
         // Create an scoped async function in the hook
         async function callSearchService() {
             const users:IUserProperties[] = await UserService.searchUsers(searchTerm.toLowerCase(),true);
@@ -124,6 +125,9 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
     const onSort=useConstCallback((ev: any, value: IDropdownOption) => {
       setSortBy(value.key.toString());
     });
+    const onAlphaClick=useConstCallback((item?: PivotItem, ev?: React.MouseEvent<HTMLElement>) => {
+      setSearchTerm(item.props.itemKey);
+    });
     return (
         <div>
           <div className={styles.row}>
@@ -156,8 +160,9 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
               }}
               linkFormat={PivotLinkFormat.tabs}
               linkSize={PivotLinkSize.normal}
+              onLinkClick={onAlphaClick}
             >
-              {az.map((index: string) => {
+              {alphabets.map((index: string) => {
                 return (
                   <PivotItem headerText={index} itemKey={index} key={index} />
                 );
@@ -165,7 +170,7 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
             </Pivot>
           </div>
        
-          { searchResults && searchResults.length>0?
+          { searchResults && searchResults.length>0 && !isLoading?
             (
             <div> 
                <Dropdown
