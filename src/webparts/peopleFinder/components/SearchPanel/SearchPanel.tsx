@@ -149,7 +149,8 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
       </div>
           <div style={columnStyles}>
           <Dropdown
-              placeholder={"Search in"}
+              placeholder={"Name"}
+              label={"Search in"}
               options={searchOptions}
               onChange={onScopeChange}
               styles={{ dropdown: { width: 200,paddingLeft:10, marginTop:10} }}
@@ -183,6 +184,7 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
             <div> 
                <Dropdown
               placeholder={strings.SortDropDownPlaceHolderMessage}
+              label={strings.SortDropDownPlaceLabelMessage}
               options={orderOptions}
               onChange={onSort}
               styles={{ dropdown: { width: 200} }}

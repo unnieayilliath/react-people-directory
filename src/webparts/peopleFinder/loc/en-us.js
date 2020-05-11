@@ -1,7 +1,7 @@
 define([], function() {
   return {
     "DescriptionFieldLabel": "This webpart shows the people inside your organisation and allows to search & find people",
-    SortDropDownPlaceHolderMessage: "Sort by ",
+    SortDropDownPlaceHolderMessage: "Sort by:FirstName ",
     SortDropDownPlaceLabelMessage: "Sort People by",
     SearchPlaceHolder: "Search for People",
     "PropertyPaneDescription": "Search People from Organization Directory",
