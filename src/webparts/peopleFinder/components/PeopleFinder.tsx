@@ -19,6 +19,7 @@ export default class PeopleFinder extends React.Component<IPeopleFinderProps,{op
       <div>
        <PrimaryButton iconProps={searchUserIcon} text="Search People" onClick={evt=>this.setState({openPanel:true})} />
        <Panel
+       isLightDismiss
         type={PanelType.large}
         headerText="People Finder"
         isOpen={this.state.openPanel}

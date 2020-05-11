@@ -18,7 +18,7 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
     { key: "JobTitle", text: "Job Title" }
   ];
   
-    const searchBoxStyles: Partial<ISearchBoxStyles> = { root: { width: "100%" } };
+    const searchBoxStyles: Partial<ISearchBoxStyles> = { root: { width: "50%" } };
     const [searchTerm, setSearchTerm] = React.useState("a");
     const [searchResults, setSearchResults] = React.useState([]);
     React.useEffect(() => {
@@ -98,7 +98,6 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
             }
             return 0;
           default:
-            console.log("going default");
             break;
         }
       });
@@ -115,12 +114,11 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
       }
     });
     const onSort=useConstCallback((ev: any, value: IDropdownOption) => {
-      console.log(value);
       setSortBy(value.key.toString());
     });
     return (
         <div>
-         <SearchBox
+         <SearchBox 
          autoFocus={true}
          styles={searchBoxStyles}
         placeholder="Search for People"
