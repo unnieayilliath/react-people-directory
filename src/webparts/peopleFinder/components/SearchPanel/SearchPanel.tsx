@@ -36,7 +36,7 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
       setIsLoading(true);
         // Create an scoped async function in the hook
         async function callSearchService() {
-            const users:IUserProperties[] = await UserService.searchUsers(searchTerm.toLowerCase(),searchScope);
+            const users:IUserProperties[] = await UserService.searchUsers(searchTerm.toLowerCase(),true,searchScope);
             setSearchResults(users);
             setIsLoading(false);
         }
@@ -116,9 +116,12 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
       setSearchResults(_users);
     }, [sortBy]);
     const [isLoading, setIsLoading] = React.useState(true);
-    const onSearch=useConstCallback((newValue) => {
+    const onSearch=useConstCallback((newValue:string) => {
       if(newValue && newValue!==""){
-        setSearchTerm(newValue);
+        // start searching only if there are minimum 3 chars
+        if(newValue.length >= 3){
+          setSearchTerm(newValue);
+        }
       }else{
         //clear search, then show users with name starting with letter 'a'
         setSearchTerm("a");

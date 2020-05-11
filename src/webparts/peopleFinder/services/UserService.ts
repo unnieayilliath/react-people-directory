@@ -5,8 +5,10 @@ import { IUserProperties } from '../components/PersonaCard/IUserProperties';
 import { ImageUtil } from '../utilities/ImageUtil';
 import { SearchScope } from '../components/SearchScope';
 export class UserService {
-    public static async searchUsers(searchString: string, searchScope:SearchScope):Promise<IUserProperties[]> {
-      let _search=`FirstName:${searchString}* OR LastName:${searchString}*`;
+    public static async searchUsers(searchString: string,searchFirstName:boolean, searchScope:SearchScope):Promise<IUserProperties[]> {
+      let _search=searchString.length>=3?`FirstName:${searchString}* OR LastName:${searchString}*`:(
+        searchFirstName?`FirstName:${searchString}*`:`LastName:${searchString}*`
+      );
       if(searchScope!=SearchScope.People){
         _search=`${searchScope}:${searchString}*`;
       }
