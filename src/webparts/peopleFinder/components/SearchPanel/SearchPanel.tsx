@@ -149,8 +149,7 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
       </div>
           <div style={columnStyles}>
           <Dropdown
-              placeholder={"Name"}
-              label={"Search in"}
+              placeholder={"Search in: Name"}
               options={searchOptions}
               onChange={onScopeChange}
               styles={{ dropdown: { width: 200,paddingLeft:10, marginTop:10} }}
