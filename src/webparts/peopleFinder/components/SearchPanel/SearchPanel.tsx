@@ -7,10 +7,10 @@ import { UserService } from '../../services/UserService';
 import { ISearchPanelProps } from './ISearchPanelProps';
 import * as strings from 'PeopleFinderWebPartStrings';
 import NoUsersMessage from '../NoUsersMessage/NoUsersMessage';
-import { Shimmer, Spinner, SpinnerSize, Dropdown, IDropdownOption, PivotLinkFormat, Pivot, PivotItem, PivotLinkSize } from 'office-ui-fabric-react';
+import { Shimmer, Spinner, SpinnerSize, Dropdown, IDropdownOption, PivotLinkFormat, Pivot, PivotItem, PivotLinkSize, TeachingBubble, IButtonProps } from 'office-ui-fabric-react';
 import styles from '../PeopleFinder.module.scss';
 import { SearchScope } from '../SearchScope';
-
+import { useBoolean } from '@uifabric/react-hooks';
 const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
   const alphabets: string[] = ["A","B","C","D","E","F","G","H","I","J",
     "K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
@@ -136,9 +136,11 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
     const onAlphaClick=useConstCallback((item?: PivotItem, ev?: React.MouseEvent<HTMLElement>) => {
       setSearchTerm(item.props.itemKey);
     });
+    const [showBubble, setShowBubble] = React.useState(true);
+
     return (
         <div>
-          <div className={styles.row}>
+          <div id="searchBox" className={styles.row}>
           <div style={columnStyles}>
           <SearchBox 
          autoFocus={true}
@@ -155,6 +157,17 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
               styles={{ dropdown: { width: 200,paddingLeft:10, marginTop:10} }}
             />
           </div>
+        </div>
+        <div>
+       { showBubble && (<TeachingBubble
+          target="#searchBox"
+          closeButtonAriaLabel="Close"
+          onDismiss={()=>{setShowBubble(false);}}
+          hasCloseIcon={true}
+          headline="Search for people inside your organization">
+         Search for people by typing atleast 3 letters. Change the scope to find all people in a department 
+         or find people with Job Title.
+        </TeachingBubble>)}
         </div>
         <div style={{paddingTop:10}}>
             <Pivot
