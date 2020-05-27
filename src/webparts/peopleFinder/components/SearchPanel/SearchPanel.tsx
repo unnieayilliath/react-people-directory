@@ -11,6 +11,7 @@ import { Shimmer, Spinner, SpinnerSize, Dropdown, IDropdownOption, PivotLinkForm
 import styles from '../PeopleFinder.module.scss';
 import { SearchScope } from '../SearchScope';
 import { useBoolean } from '@uifabric/react-hooks';
+import { SortUtil } from '../../utilities/SortUtil';
 const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
   const alphabets: string[] = ["A","B","C","D","E","F","G","H","I","J",
     "K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
@@ -45,74 +46,10 @@ const SearchPanel: React.FunctionComponent<ISearchPanelProps> = (props) => {
       }, [searchTerm]);
     const [sortBy, setSortBy] = React.useState("FirstName");
     React.useEffect(() => {
+      console.log("sorting by " + sortBy);
       let _users = searchResults;
-      _users = _users.sort((a: any, b: any) => {
-        switch (sortBy) {
-          // Sorte by FirstName
-          case "FirstName":
-            const aFirstName = a.FirstName ? a.FirstName : "";
-            const bFirstName = b.FirstName ? b.FirstName : "";
-            if (aFirstName.toUpperCase() < bFirstName.toUpperCase()) {
-              return -1;
-            }else if (aFirstName.toUpperCase() > bFirstName.toUpperCase()) {
-              return 1;
-            }
-            return 0;
-          // Sort by LastName
-          case "LastName":
-            const aLastName = a.LastName ? a.LastName : "";
-            const bLastName = b.LastName ? b.LastName : "";
-            if (aLastName.toUpperCase() < bLastName.toUpperCase()) {
-              return -1;
-            }else if (aLastName.toUpperCase() > bLastName.toUpperCase()) {
-              return 1;
-            }
-            return 0;
-          // Sort by Location
-          case "Location":
-            const aBaseOfficeLocation = a.BaseOfficeLocation
-              ? a.BaseOfficeLocation
-              : "";
-            const bBaseOfficeLocation = b.BaseOfficeLocation
-              ? b.BaseOfficeLocation
-              : "";
-            if (
-              aBaseOfficeLocation.toUpperCase() <
-              bBaseOfficeLocation.toUpperCase()
-            ) {
-              return -1;
-            }else if (
-              aBaseOfficeLocation.toUpperCase() >
-              bBaseOfficeLocation.toUpperCase()
-            ) {
-              return 1;
-            }
-            return 0;
-            break;
-          // Sort by JobTitle
-          case "JobTitle":
-            const aJobTitle = a.Title ? a.Title : "";
-            const bJobTitle = b.Title ? b.Title : "";
-            if (aJobTitle.toUpperCase() < bJobTitle.toUpperCase()) {
-              return -1;
-            }else if (aJobTitle.toUpperCase() > bJobTitle.toUpperCase()) {
-              return 1;
-            }
-            return 0;
-          // Sort by Department
-          case "Department":
-            const aDepartment = a.Department ? a.Department : "";
-            const bDepartment = b.Department ? b.Department : "";
-            if (aDepartment.toUpperCase() < bDepartment.toUpperCase()) {
-              return -1;
-            }else if (aDepartment.toUpperCase() > bDepartment.toUpperCase()) {
-              return 1;
-            }
-            return 0;
-          default:
-            break;
-        }
-      });
+      SortUtil.sort(_users,sortBy);
+      console.log(_users);
       setSearchResults(_users);
     }, [sortBy]);
     const [isLoading, setIsLoading] = React.useState(true);
